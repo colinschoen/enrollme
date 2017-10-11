@@ -6,5 +6,5 @@ Recording by Colin Schoen: https://www.youtube.com/watch?v=z2EqtzKSWTk
 
 Video
 
-2 min interview with Cindy Connors:
+2 min interview with Cindy Connors: https://www.youtube.com/watch?v=FYQ_938HqJ8
 
