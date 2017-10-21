@@ -24,7 +24,7 @@ class AdminMailer < ApplicationMailer
       @team.users.each do |approved_user|
          @user = approved_user
          @url = ENV["SERVER_EMAIL"]
-         mail(to: @user.email, subject: "Your team has been approved") do |format|
+         mail(to: @user.email, subject: 'Your team has been approved') do |format|
             format.html
          end
       end
@@ -36,14 +36,14 @@ class AdminMailer < ApplicationMailer
       @team.users.each do |disapproved_user|
          @user = disapproved_user
          @url = ENV["SERVER_EMAIL"]
-         mail(to: @user.email, subject: "Your team has been disapproved") do |format|
+         mail(to: @user.email, subject: 'Your team has been disapproved') do |format|
             format.html
          end
       end
    end
    
    def look_at_submission(email)
-      mail(to: email, subject: "Teams are awaiting your approval!")
+      mail(to: email, subject: 'Teams are awaiting your approval!')
    end
    
    def all_data(admin)
