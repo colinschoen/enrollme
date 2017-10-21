@@ -4,7 +4,8 @@ class AdminMailer < ApplicationMailer
   def invite_new_admin(admin)
     @admin = admin
     @url = ENV["SERVER_EMAIL"]
-    mail(to: @admin.email, subject: "Superadmin gave you access as admin for EnrollMe") do |format|
+    mail(to: @admin.email, subject: "Superadmin gave you access \
+      as admin for EnrollMe") do |format|
       format.html
     end
   end
@@ -48,7 +49,8 @@ class AdminMailer < ApplicationMailer
 
   def all_data(admin)
     @admin = admin
-    mail(to: @admin.email, subject: 'Reset Semester: All data that was deleted') do |format|
+    mail(to: @admin.email, subject: 'Reset Semester: \
+      All data that was deleted') do |format|
       format.html
     end
   end
@@ -60,5 +62,4 @@ class AdminMailer < ApplicationMailer
       end
     end
   end
-
 end
