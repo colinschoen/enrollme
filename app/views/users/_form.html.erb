@@ -10,5 +10,13 @@
     <p class="text-danger"> <strong> Warning: </strong> Please do not select "DECLARED CS/EECS Major", if you are planning to or in the near future become a declared CS/EECS major.  Select the "Intended-CS Major" option instead, please. </p>
 </div>
 
+<div class="field form-group">
+    <%= f.label :talent, class: "col-lg-2 control-label"  %> <br>
+    <%= f.text_field :talent, class: "form-control"  %>
+    <% @all_skills.each do |skill| %>
+    	<%= skill %>
+    	<%= check_box_tag "#{skill}", 1, @talents.include?(skill)%>
+  	<% end %>
+</div>
 
 <br>
