@@ -12,6 +12,9 @@ class UsersController < ApplicationController
     @user = User.new
     session[:user_id] = @user.id
     @user_email = session[:user_email] = params[:user_email]
+    # Obtain information from skills checkboxes
+    @skills = Skill.where(:active => true)
+    # Fill out talents model
     render 'new'
   end
 
@@ -77,4 +80,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :sid, :major)
   end
+  
 end
