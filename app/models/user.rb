@@ -11,6 +11,19 @@ class User < ActiveRecord::Base
   validates :sid, presence: true, uniqueness: true, length: { maximum: 10 }
   before_save :downcase_email
 
+  def get_skills
+    # skills.inject("") {|str, skill| str += skill.name}
+    if talents.nil? || talents.length == 0
+      return ""
+    end
+    skills = ""
+    talents.each do |talent|
+      skill = Skill.find(talent.skill_id)
+      skills += skill.name + ", "
+    end
+    skills
+  end
+
   def skill?(skill)
     if talents.length.zero?
       return false

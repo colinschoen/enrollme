@@ -55,9 +55,12 @@ class UsersController < ApplicationController
   end
 
   def update
+    puts "========================="
+    puts user_params
     @user.update_attributes!(user_params)
     @team = @user != nil ? @user.team : nil
-    return redirect_to team_path({:id => @team === nil ? 1 : @team.id, :uid => @user.id})
+    return redirect_to user_path({:id => @user.id})
+    # return redirect_to team_path({:id => @team === nil ? 1 : @team.id, :uid => @user.id})
   end
 
   private
@@ -73,6 +76,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :sid, :major)
+    params.require(:user).permit(:name, :email, :sid, :major, :skill_ids)
   end
 end
