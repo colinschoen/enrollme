@@ -13,14 +13,14 @@ class User < ActiveRecord::Base
   validates :sid, presence: true, uniqueness: true, length: { maximum: 10 }
   before_save :downcase_email
 
-  def create_talents 
+  def get_talents
     [].tap do |o|
       Skill.all.each do |skill|
-        tlist = Talent.where(:skill_id => skill.id)
-        puts tlist.to_json
+        params = {:skill_id => skill.id, :user_id => id}
+        tlist = Talent.where(params)
         t = tlist[0]
         if tlist.length == 0
-            t = Talent.new(:skill => skill)
+          t = Talent.create!(params)
         end
         o << t.tap { |t| t.enable ||= true }
       end
@@ -28,7 +28,6 @@ class User < ActiveRecord::Base
   end
 
   def get_skills
-    # skills.inject("") {|str, skill| str += skill.name}
     if talents.nil? || talents.length == 0
       return ""
     end

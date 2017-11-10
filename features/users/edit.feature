@@ -21,7 +21,6 @@ Feature: edit user information
     And I should see "Sahai"
     And I follow "Edit"
     And I fill in "Name" with "NewName"
-    And  print page body
     And I check "Frontend"
     And I press "Update Information"
     Then I should see "NewName"
