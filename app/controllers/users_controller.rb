@@ -76,6 +76,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :sid, :major, :skill_ids)
+    params.require(:user).permit(:name, :email, :sid, :major, :talent_attributes => ["0".to_sym, "1".to_sym]);
   end
 end

@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   has_many :talents
   has_many :skills, through: :talents
 
+  accepts_nested_attributes_for :talents
+
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, uniqueness: true, length: { maximum: 50 }, \
@@ -10,6 +12,20 @@ class User < ActiveRecord::Base
   validates :major, presence: true
   validates :sid, presence: true, uniqueness: true, length: { maximum: 10 }
   before_save :downcase_email
+
+  def create_talents 
+    [].tap do |o|
+      Skill.all.each do |skill|
+        tlist = Talent.where(:skill_id => skill.id)
+        puts tlist.to_json
+        t = tlist[0]
+        if tlist.length == 0
+            t = Talent.new(:skill => skill)
+        end
+        o << t.tap { |t| t.enable ||= true }
+      end
+    end
+  end
 
   def get_skills
     # skills.inject("") {|str, skill| str += skill.name}
