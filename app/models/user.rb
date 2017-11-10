@@ -13,29 +13,26 @@ class User < ActiveRecord::Base
   validates :sid, presence: true, uniqueness: true, length: { maximum: 10 }
   before_save :downcase_email
 
-  def get_talents
+  def init_talents
     [].tap do |o|
       Skill.all.each do |skill|
-        params = {:skill_id => skill.id, :user_id => id}
+        params = {skill_id: skill.id, user_id: id}
         tlist = Talent.where(params)
         t = tlist[0]
-        if tlist.length == 0
-          t = Talent.create!(params)
-        end
-        o << t.tap { |t| t.enable ||= true }
+        t = Talent.create!(params) if tlist.length.zero?
+        o << t.tap { |subT| subT.enable ||= true }
       end
     end
   end
 
-  def get_skills
-    if talents.nil? || talents.length == 0
+  def skills_str
+    if talents.nil? || talents.length.zero?
       return ""
     end
     skills = ""
     talents.each do |talent|
-      unless talent.skill.name.nil?
-        skills += talent.skill.name + ", "
-      end
+      skill_name = talent.skill.name
+      skills += skill_name + ", " unless skill_name.nil?
     end
     skills
   end
