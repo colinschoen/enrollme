@@ -33,8 +33,9 @@ class User < ActiveRecord::Base
     end
     skills = ""
     talents.each do |talent|
-      skill = Skill.find(talent.skill_id)
-      skills += skill.name + ", "
+      unless talent.skill.name.nil?
+        skills += talent.skill.name + ", "
+      end
     end
     skills
   end
